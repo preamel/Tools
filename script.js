@@ -1,30 +1,74 @@
-function calculate() {
-    const c1 = parseFloat(document.getElementById("c1").value);
-    const v1 = parseFloat(document.getElementById("v1").value);
-    const c2 = parseFloat(document.getElementById("c2").value);
-    const v2 = parseFloat(document.getElementById("v2").value);
+function designPrimer() {
+    const sequence = document.getElementById("sequence").value.toUpperCase().replace(/[^ATGC]/g, "");
+    const minLength = parseInt(document.getElementById("minLength").value);
+    const maxLength = parseInt(document.getElementById("maxLength").value);
+    const minGC = parseInt(document.getElementById("minGC").value);
+    const maxGC = parseInt(document.getElementById("maxGC").value);
+    const minTm = parseInt(document.getElementById("minTm").value);
+    const maxTm = parseInt(document.getElementById("maxTm").value);
+    const resultsDiv = document.getElementById("results");
 
-    let resultText = "";
-
-    if (!isNaN(c1) && !isNaN(v1) && !isNaN(c2)) {
-        // Calculate V2
-        const v2 = (c1 * v1) / c2;
-        resultText = `Final Volume (V<sub>2</sub>): ${v2.toFixed(2)} units`;
-    } else if (!isNaN(c1) && !isNaN(v2) && !isNaN(c2)) {
-        // Calculate V1
-        const v1 = (c2 * v2) / c1;
-        resultText = `Volume of Stock Solution (V<sub>1</sub>): ${v1.toFixed(2)} units`;
-    } else if (!isNaN(v1) && !isNaN(v2) && !isNaN(c2)) {
-        // Calculate C1
-        const c1 = (c2 * v2) / v1;
-        resultText = `Stock Concentration (C<sub>1</sub>): ${c1.toFixed(2)} units`;
-    } else if (!isNaN(c1) && !isNaN(v1) && !isNaN(v2)) {
-        // Calculate C2
-        const c2 = (c1 * v1) / v2;
-        resultText = `Final Concentration (C<sub>2</sub>): ${c2.toFixed(2)} units`;
-    } else {
-        resultText = "Please provide exactly three values to calculate the fourth.";
+    // Validate input fields
+    if (!sequence || isNaN(minLength) || isNaN(maxLength) || isNaN(minGC) || isNaN(maxGC) || isNaN(minTm) || isNaN(maxTm)) {
+        resultsDiv.innerHTML = "Please fill in all fields with valid values.";
+        return;
     }
 
-    document.getElementById("result").innerHTML = resultText;
+    console.log("Sequence:", sequence);
+    console.log("Parameters:", { minLength, maxLength, minGC, maxGC, minTm, maxTm });
+
+    let primers = [];
+
+    // Loop through sequence to generate primers based on the input parameters
+    for (let i = 0; i <= sequence.length - minLength; i++) {
+        for (let j = minLength; j <= maxLength; j++) {
+            const primer = sequence.substring(i, i + j);
+            if (primer.length < minLength || primer.length > maxLength) continue;
+
+            // Calculate GC content
+            const gcContent = ((primer.match(/[GC]/g) || []).length / primer.length) * 100;
+
+            // Check GC content range
+            if (gcContent < minGC || gcContent > maxGC) continue;
+
+            // Calculate melting temperature (Tm)
+            const tm = 4 * (primer.match(/[GC]/g) || []).length + 2 * (primer.match(/[AT]/g) || []).length;
+
+            // Check Tm range
+            if (tm < minTm || tm > maxTm) continue;
+
+            primers.push({
+                sequence: primer,
+                position: i + 1,
+                length: primer.length,
+                gcContent: gcContent.toFixed(2),
+                tm: tm.toFixed(2),
+            });
+        }
+    }
+
+    // Debugging: log the primers array
+    console.log("Primers found:", primers);
+
+    // If no primers are found, show an error message
+    if (primers.length === 0) {
+        resultsDiv.innerHTML = "No primers found matching the specified parameters.";
+        return;
+    }
+
+    // Display the primer results
+    let resultsHTML = "<h3>Primer Results:</h3><ul>";
+    primers.forEach(primer => {
+        resultsHTML += `
+            <li>
+                <strong>Sequence:</strong> ${primer.sequence} <br>
+                <strong>Position:</strong> ${primer.position} <br>
+                <strong>Length:</strong> ${primer.length} <br>
+                <strong>GC Content:</strong> ${primer.gcContent}% <br>
+                <strong>Tm:</strong> ${primer.tm}°C
+            </li><br>`;
+    });
+    resultsHTML += "</ul>";
+
+    resultsDiv.innerHTML = resultsHTML;
 }
