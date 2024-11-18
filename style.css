@@ -1,13 +1,30 @@
+/* General Styling */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f7f7f7;
+    background: url('dna-background.jpg') no-repeat center center fixed;
+    background-size: cover;
     color: #333;
 }
 
+/* Header Styling */
+header {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+/* Main Container */
 .container {
-    max-width: 600px;
+    max-width: 700px;
     margin: 50px auto;
     padding: 20px;
     background: white;
@@ -15,7 +32,7 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
+h2 {
     text-align: center;
     color: #444;
 }
@@ -26,7 +43,7 @@ form label {
     font-weight: bold;
 }
 
-form input {
+form input, form textarea {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
@@ -37,7 +54,7 @@ form input {
 button {
     width: 100%;
     padding: 10px;
-    background-color: #007bff;
+    background-color: #5cb85c;
     color: white;
     border: none;
     border-radius: 5px;
@@ -46,12 +63,12 @@ button {
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #4cae4c;
 }
 
-#result {
+/* Results Section */
+#results {
     margin-top: 20px;
-    font-size: 18px;
-    text-align: center;
-    color: #28a745;
+    font-size: 16px;
+    color: #555;
 }
