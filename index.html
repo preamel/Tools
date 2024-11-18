@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dilution Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Dilution Calculator</h1>
+        <p>Calculate any one value from the formula <strong>C<sub>1</sub>V<sub>1</sub> = C<sub>2</sub>V<sub>2</sub></strong>.</p>
+        
+        <form id="dilutionForm">
+            <label for="c1">Stock Concentration (C<sub>1</sub>):</label>
+            <input type="number" id="c1" placeholder="Enter stock concentration">
+
+            <label for="v1">Volume of Stock Solution (V<sub>1</sub>):</label>
+            <input type="number" id="v1" placeholder="Enter volume of stock solution">
+
+            <label for="c2">Final Concentration (C<sub>2</sub>):</label>
+            <input type="number" id="c2" placeholder="Enter final concentration">
+
+            <label for="v2">Final Volume (V<sub>2</sub>):</label>
+            <input type="number" id="v2" placeholder="Enter final volume">
+
+            <button type="button" onclick="calculate()">Calculate</button>
+        </form>
+        
+        <div id="result"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
