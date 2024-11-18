@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Primer Design Tool</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to Dr BA's Molecular Biology Lab</h1>
+    </header>
+    <div class="container">
+        <h2>Primer Design Tool</h2>
+        <form id="primerForm">
+            <label for="sequence">Enter DNA Sequence (A, T, G, C only):</label>
+            <textarea id="sequence" rows="5" placeholder="Enter your sequence here"></textarea>
+            
+            <label for="minLength">Minimum Primer Length:</label>
+            <input type="number" id="minLength" placeholder="e.g., 18">
+
+            <label for="maxLength">Maximum Primer Length:</label>
+            <input type="number" id="maxLength" placeholder="e.g., 25">
+
+            <label for="minGC">Minimum GC Content (%):</label>
+            <input type="number" id="minGC" placeholder="e.g., 40">
+
+            <label for="maxGC">Maximum GC Content (%):</label>
+            <input type="number" id="maxGC" placeholder="e.g., 60">
+
+            <label for="minTm">Minimum Melting Temperature (°C):</label>
+            <input type="number" id="minTm" placeholder="e.g., 50">
+
+            <label for="maxTm">Maximum Melting Temperature (°C):</label>
+            <input type="number" id="maxTm" placeholder="e.g., 65">
+
+            <button type="button" onclick="designPrimer()">Design Primers</button>
+        </form>
+
+        <div id="results"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
